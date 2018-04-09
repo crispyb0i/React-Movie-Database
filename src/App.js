@@ -58,11 +58,25 @@ class Search extends React.Component {
     this.getMovies(this.state.value)
     var movies = [];
     var currentImage = "http://www.reelviews.net/resources/img/default_poster.jpg"
-    console.log(this.state.currentMovie)
     var imdbLink = "https://www.imdb.com/title/" +this.state.currentMovie.imdb_id
+    var runtime = "Unavailable"
+    var overview = "Unavailable"
+    var releaseDate = "Unavailable"
+    if(this.state.currentMovie.runtime){
+      runtime = this.state.currentMovie.runtime + " minutes"
+    }
     if(this.state.currentMovie.poster_path){
       var currentImage = "https://image.tmdb.org/t/p/w500"+this.state.currentMovie.poster_path;
     }
+
+    if(this.state.currentMovie.overview){
+      var overview = this.state.currentMovie.overview;
+    }
+
+    if(this.state.currentMovie.release_date){
+      var releaseDate = this.state.currentMovie.release_date;
+    }
+
     if(this.state.movies!==undefined){
       for(var i=0;i<this.state.movies.length;i++){
         var image = "https://image.tmdb.org/t/p/w500"+this.state.movies[i].poster_path;
@@ -102,11 +116,11 @@ class Search extends React.Component {
             </a>
             <br/><br/>
           <div className="format">
-            <p><b>Release Date:</b> {this.state.currentMovie.release_date}</p>
+            <p><b>Release Date:</b> {releaseDate}</p>
 
-            <p><b>Runtime: </b>{this.state.currentMovie.runtime} minutes</p>
+            <p><b>Runtime: </b>{runtime}</p>
 
-            <p><b>Overview: </b>{this.state.currentMovie.overview}</p>
+            <p><b>Overview: </b>{overview}</p>
           </div>
         </Modal>
       </div>
