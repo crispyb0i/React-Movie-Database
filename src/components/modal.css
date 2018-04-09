@@ -1,0 +1,25 @@
+.modal {
+  background: url("http://ak5.picdn.net/shutterstock/videos/20361445/thumb/10.jpg") center;
+  /* background:'url("https://image.freepik.com/free-vector/modern-gray-abstract-background-with-floating-shapes_1048-5397.jpg") top', */
+  background-color: #fff;
+  background-size: 600px;
+  border-radius: 5px;
+  max-width: 500px;
+  min-height: 300px;
+  max-height: 600px;
+  margin: 0 auto;
+  padding: 30px;
+  overflow: scroll;
+  animation-duration: 1.5s;
+  animation-name: fadeIn;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

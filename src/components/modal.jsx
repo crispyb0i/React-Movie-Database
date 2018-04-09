@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './modal.css'
 
 class Modal extends React.Component {
   render() {
@@ -20,23 +21,25 @@ class Modal extends React.Component {
     };
 
     // The modal "window"
-    const modalStyle = {
-      background: 'url("http://ak5.picdn.net/shutterstock/videos/20361445/thumb/10.jpg") center',
-      // background:'url("https://image.freepik.com/free-vector/modern-gray-abstract-background-with-floating-shapes_1048-5397.jpg") top',
-      backgroundColor: '#fff',
-      backgroundSize: 600,
-      borderRadius: 5,
-      maxWidth: 500,
-      minHeight: 300,
-      maxHeight: 600,
-      margin: '0 auto',
-      padding: 30,
-      overflow: 'scroll'
-    };
+    // const modalStyle = {
+    //   background: 'url("http://ak5.picdn.net/shutterstock/videos/20361445/thumb/10.jpg") center',
+    //   // background:'url("https://image.freepik.com/free-vector/modern-gray-abstract-background-with-floating-shapes_1048-5397.jpg") top',
+    //   backgroundColor: '#fff',
+    //   backgroundSize: 600,
+    //   borderRadius: 5,
+    //   maxWidth: 500,
+    //   minHeight: 300,
+    //   maxHeight: 600,
+    //   margin: '0 auto',
+    //   padding: 30,
+    //   overflow: 'scroll',
+    //   animationDuration: 6,
+    //   animationName: 'fadeIn'
+    // };
 
     return (
       <div className="backdrop" style={backdropStyle}>
-        <div className="modal" style={modalStyle}>
+        <div className="modal">
           {this.props.children}
 
           <div className="footer">

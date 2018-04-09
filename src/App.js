@@ -6,20 +6,36 @@ import Modal from './components/modal.jsx'
 class Search extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: '',movies: '',isOpen:false,currentMovie:''};
+    this.state = {value: '',movies: '',isOpen:false,currentMovie:"",movieNum:0};
 
     this.handleChange = this.handleChange.bind(this);
   }
 
   toggleModal = (e) => {
-    console.log(e.currentTarget.id)
+    var modal = document.getElementsByClassName("modal")
+    var closed = false
+    var test = this;
+    this.setState({movieNum:e.currentTarget.getAttribute('id')})
+    this.setState({currentMovie: ""})
     this.setState({
       isOpen: !this.state.isOpen
     });
     if(!this.state.isOpen){
-      this.setState({currentMovie:this.state.movies[e.currentTarget.id]})
+      fetch('https://api.themoviedb.org/3/movie/' + this.state.movies[e.currentTarget.id].id + '?api_key=5a30cbf91506d4fd84f16d4119821fb3&language=en-US')
+      .then(response => {
+        response.json()
+          .then((data) => {
+              this.setState({currentMovie: data})
+          })
+      })
+      // this.setState({currentMovie:this.state.movies[e.currentTarget.id]})
+      window.onclick = function(event) {
+        if(event.target.getAttribute("class")=="backdrop"){
+        test.setState({isOpen:!test.state.isOpen})
+      }
     }
   }
+}
 
   getMovies(movieTitle) {
     if(movieTitle!==""){
@@ -42,8 +58,9 @@ class Search extends React.Component {
     this.getMovies(this.state.value)
     var movies = [];
     var currentImage=""
-    if(this.state.currentMovie!==null && this.state.currentMovie.poster_path!==null){
-      var currentImage = "https://image.tmdb.org/t/p/w500"+this.state.currentMovie.poster_path;
+    var imdbLink = "https://www.imdb.com/title/" +this.state.currentMovie.imdb_id
+    if(this.state.currentMovie.poster_path!==undefined){
+      var currentImage = "https://image.tmdb.org/t/p/w500"+this.state.movies[this.state.movieNum].poster_path;
     }else if(this.state.currentMovie!==null && this.state.currentMovie.poster_path===null){
       var currentImage = "http://www.reelviews.net/resources/img/default_poster.jpg"
     }
@@ -80,14 +97,18 @@ class Search extends React.Component {
         <h1>{movies}</h1>
         <Modal show={this.state.isOpen}
           onClose={this.toggleModal}>
-            <h1>{this.state.currentMovie.title}</h1>
+            <h1 id="title">{this.state.currentMovie.title}</h1>
+            <a href={imdbLink} target="_blank">
             <img src={currentImage} class="modalPoster"/>
+            </a>
             <br/><br/>
-            <b>Release Date:</b>
-            <p>{this.state.currentMovie.release_date}</p>
+          <div className="format">
+            <p><b>Release Date:</b> {this.state.currentMovie.release_date}</p>
 
-            <b>Overview:</b>
-            <p>{this.state.currentMovie.overview}</p>
+            <p><b>Runtime: </b>{this.state.currentMovie.runtime} minutes</p>
+
+            <p><b>Overview: </b>{this.state.currentMovie.overview}</p>
+          </div>
         </Modal>
       </div>
     );
