@@ -61,7 +61,7 @@ class Search extends React.Component {
     var imdbLink = "https://www.imdb.com/title/" +this.state.currentMovie.imdb_id
     if(this.state.currentMovie.poster_path!==undefined){
       var currentImage = "https://image.tmdb.org/t/p/w500"+this.state.movies[this.state.movieNum].poster_path;
-    }else if(this.state.currentMovie!==null && this.state.currentMovie.poster_path===null){
+    }else if(this.state.currentMovie.poster_path===undefined){
       var currentImage = "http://www.reelviews.net/resources/img/default_poster.jpg"
     }
     if(this.state.movies!==undefined){
