@@ -57,12 +57,11 @@ class Search extends React.Component {
   render() {
     this.getMovies(this.state.value)
     var movies = [];
-    var currentImage=""
+    var currentImage = "http://www.reelviews.net/resources/img/default_poster.jpg"
+    console.log(this.state.currentMovie)
     var imdbLink = "https://www.imdb.com/title/" +this.state.currentMovie.imdb_id
-    if(this.state.currentMovie.poster_path!==undefined){
-      var currentImage = "https://image.tmdb.org/t/p/w500"+this.state.movies[this.state.movieNum].poster_path;
-    }else if(this.state.currentMovie.poster_path===undefined){
-      var currentImage = "http://www.reelviews.net/resources/img/default_poster.jpg"
+    if(this.state.currentMovie.poster_path){
+      var currentImage = "https://image.tmdb.org/t/p/w500"+this.state.currentMovie.poster_path;
     }
     if(this.state.movies!==undefined){
       for(var i=0;i<this.state.movies.length;i++){
